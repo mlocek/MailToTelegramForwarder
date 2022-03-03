@@ -229,7 +229,7 @@ class TelegramBot:
                         '<\g<elem>\g<ref>>', tg_body, flags=(re.DOTALL | re.MULTILINE | re.IGNORECASE))
 
         # remove style and script elements/blocks
-        tg_msg = re.sub(r'<\s*(?P<elem>script|style)\s*>.*?</\s*(?P=elem)\s*>',
+        tg_msg = re.sub(r'<\s*(?P<elem>script|style|signature)\s*>.*?</\s*(?P=elem)\s*>',
                         '', tg_msg, flags=(re.DOTALL | re.MULTILINE | re.IGNORECASE))
 
         # preserve NBSPs
@@ -245,7 +245,7 @@ class TelegramBot:
         tg_msg = re.sub(r'</\s*li\s*>([^<]*</\s*[ou]l\s*>)?', '\n', tg_msg, flags=(re.MULTILINE | re.IGNORECASE))
 
         # remove unsupported tags
-        regex_filter_elem = re.compile('<\s*(?!/?(bold|strong|i|em|u|ins|s|strike|del|b|a|code|pre))\s*[^>]*?>',
+        regex_filter_elem = re.compile('<\s*(?!/?(bold|strong|i|em|u|ins|s|strike|del|b|a|code|signature|pre))\s*[^>]*?>',
                                        flags=re.MULTILINE)
         tg_msg = re.sub(regex_filter_elem, ' ', tg_msg)
         tg_msg = re.sub(r'</?\s*(img|span)\s*[^>]*>', '', tg_msg, flags=(re.DOTALL | re.MULTILINE | re.IGNORECASE))
